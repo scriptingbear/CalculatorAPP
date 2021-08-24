@@ -33,9 +33,9 @@ Partial Class frmCalculator
         Me.btnMultiply = New System.Windows.Forms.Button()
         Me.btnDivide = New System.Windows.Forms.Button()
         Me.cboDecimals = New System.Windows.Forms.ComboBox()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.txtResult = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.btnClear = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblFirstNum
@@ -137,6 +137,16 @@ Partial Class frmCalculator
         Me.cboDecimals.TabIndex = 7
         Me.ToolTip1.SetToolTip(Me.cboDecimals, "Specify the number of decimals in the calculated result")
         '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(644, 271)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(94, 29)
+        Me.btnClear.TabIndex = 10
+        Me.btnClear.Text = "Clear"
+        Me.ToolTip1.SetToolTip(Me.btnClear, "Clear numbers entered and results")
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'txtResult
         '
         Me.txtResult.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
@@ -155,16 +165,6 @@ Partial Class frmCalculator
         Me.Label1.Size = New System.Drawing.Size(109, 32)
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Precision"
-        '
-        'btnClear
-        '
-        Me.btnClear.Location = New System.Drawing.Point(644, 271)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(94, 29)
-        Me.btnClear.TabIndex = 10
-        Me.btnClear.Text = "Clear"
-        Me.ToolTip1.SetToolTip(Me.btnClear, "Clear numbers entered and results")
-        Me.btnClear.UseVisualStyleBackColor = True
         '
         'frmCalculator
         '

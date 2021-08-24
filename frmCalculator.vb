@@ -5,11 +5,33 @@
     Private result As Double
     Private strFormattedCalculation As String
     Private strFormat As String
+    Private arButtons As New ArrayList()
+
+    Private Sub ToggleButtonBackColor(ByRef objButton As Button)
+        '===================================================================
+        'Change the backcolor of the referenced button to "MenuHighlight"
+        'and that of the remaining buttons to "Control"
+        '===================================================================
+
+        For Each obj As Button In arButtons
+            If obj.Name = objButton.Name Then
+                obj.BackColor = SystemColors.MenuHighlight
+            Else
+                obj.BackColor = SystemColors.Control
+            End If
+        Next obj
+
+    End Sub
 
     Private Sub Calculate(ByRef objButton As Button)
+        '===================================================================
         'Perform the specified calculation on the operands, format the result
         'and update txtResult.
+        'Also change BackColor of selected button to provide visual confirmation
+        'of the most recent mathematical operation.
         'Need to get the tag of the button to compose the text for txtResults.
+        '===================================================================
+
         Dim strTag As String = objButton.Tag
 
         Select Case objButton.Text
@@ -25,13 +47,17 @@
 
         strFormattedCalculation = String.Format(strFormat, result)
         txtResult.Text = $"{strTag} {num1} and {num2} is {strFormattedCalculation}"
+
+        ToggleButtonBackColor(objButton)
     End Sub
     Private Function ValidateOperands() As Boolean
+        '===================================================================
         'Both operands must be valid numeric values.
         'Additionally, if the selected operation is division, the
         'second operand must not be 0
         'If both operands are valid, store in form level variables as
         'actual numbers so that all procedures can access them
+        '===================================================================
 
         Dim strButtonName As String = Me.ActiveControl.Name
 
@@ -55,12 +81,24 @@
     Private Sub frmCalculator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Set default precision
         cboDecimals.SelectedIndex = 0
+        '===================================================================
+        'Reference the four math operation buttons for use later in other
+        'procs.
+        '===================================================================
+        With arButtons
+            .Add(btnAdd)
+            .Add(btnSubtract)
+            .Add(btnMultiply)
+            .Add(btnDivide)
+        End With
     End Sub
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        '===================================================================
         'Cast the sender object as a Button so that Calculate() can extract
         'various properties such as Text and Tag, which determine the operation
         'to be performed and the precision of the result, respectively.
+        '===================================================================
 
         Dim objButton As Button = CType(sender, Button)
 
@@ -70,7 +108,10 @@
     End Sub
 
     Private Sub cboDecimals_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboDecimals.SelectedIndexChanged
+        '===================================================================
         'Update the format string
+        '===================================================================
+
         strFormat = $"{{0:f{cboDecimals.Text}}}"
         'If txtResult has a value, update the calculated result using the updated
         'format string
@@ -82,9 +123,11 @@
     End Sub
 
     Private Sub btnSubtract_Click(sender As Object, e As EventArgs) Handles btnSubtract.Click
+        '===================================================================
         'Cast the sender object as a Button so that Calculate() can extract
         'various properties such as Text and Tag, which determine the operation
         'to be performed and the precision of the result, respectively.
+        '===================================================================
 
         Dim objButton As Button = CType(sender, Button)
 
@@ -94,9 +137,11 @@
     End Sub
 
     Private Sub btnMultiply_Click(sender As Object, e As EventArgs) Handles btnMultiply.Click
+        '===================================================================
         'Cast the sender object as a Button so that Calculate() can extract
         'various properties such as Text and Tag, which determine the operation
         'to be performed and the precision of the result, respectively.
+        '===================================================================
 
         Dim objButton As Button = CType(sender, Button)
 
@@ -106,9 +151,11 @@
     End Sub
 
     Private Sub btnDivide_Click(sender As Object, e As EventArgs) Handles btnDivide.Click
+        '===================================================================
         'Cast the sender object as a Button so that Calculate() can extract
         'various properties such as Text and Tag, which determine the operation
         'to be performed and the precision of the result, respectively.
+        '===================================================================
 
         Dim objButton As Button = CType(sender, Button)
 
@@ -122,6 +169,11 @@
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        '===================================================================
+        'Clear the number textboxes and the result textbox.
+        'Also set the BackColor of the four math buttons to the default.
+        'Also reset the precision to 0
+        '===================================================================
         Dim arTextBoxes As New ArrayList()
         With arTextBoxes
             .Add(txtFirstNum)
@@ -131,6 +183,12 @@
 
         For Each obj As TextBox In arTextBoxes
             obj.Clear()
-        Next
+        Next obj
+
+        For Each obj As Button In arButtons
+            obj.BackColor = SystemColors.Control
+        Next obj
+
+        cboDecimals.SelectedIndex = 0
     End Sub
 End Class
